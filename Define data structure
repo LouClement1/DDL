@@ -1,0 +1,29 @@
+-- 创建用户表
+CREATE TABLE users (
+    id INT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE,
+    password VARCHAR(100),
+    email VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 创建文章表
+CREATE TABLE articles (
+    id INT PRIMARY KEY,
+    title VARCHAR(255),
+    content TEXT,
+    author_id INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (author_id) REFERENCES users(id)
+);
+
+-- 创建评论表
+CREATE TABLE comments (
+    id INT PRIMARY KEY,
+    article_id INT,
+    user_id INT,
+    content TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (article_id) REFERENCES articles(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
